@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Animated, ScrollView, TextInput, Modal } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import * as Location from 'expo-location';
 import * as Speech from 'expo-speech';
 import { generateStoryFromLocation, askQuestionAboutStory } from './StoryService';
@@ -8,6 +8,14 @@ import { checkForGeofencedAds, MarketingCompanion } from './GeofenceService';
 import { useAppStore } from './store';
 
 export default function App() {
+  return (
+    <SafeAreaProvider>
+      <MainApp />
+    </SafeAreaProvider>
+  );
+}
+
+function MainApp() {
   const { location, setLocation, mode, setMode, isListening, toggleListening, currentStory, setCurrentStory, isSpeaking, setIsSpeaking, hasCompletedOnboarding, setHasCompletedOnboarding } = useAppStore();
   
   // Phase 5: Onboarding Flow State
